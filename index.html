@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Divine Hat</title>
+        <title>UV</title>
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -17,6 +17,50 @@
             type="module"
             src="https://pyscript.net/releases/2024.7.1/core.js"
         ></script>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0/dist/chartjs-adapter-moment.min.js"></script>
     </head>
-    <body></body>
+    <body>
+        <script
+            type="mpy"
+            src="./main.py"
+            config="./pyscript.toml"
+            async
+        ></script>
+        <script src="app.js"></script>
+
+        <h1>UV Index Activity</h1>
+        <h2>Connect to Spike and Pico</h2>
+        <p>
+            First connect up to the Spike Prime in order to communicate to the
+            RoboPico
+        </p>
+        <button id="connect">connect up</button>
+        <button id="library">load BLE library</button>
+        <progress id="progress" value="0" max="100">0%</progress> <br /><br />
+        <select name="files" id="files"></select>
+        <button id="upload">Grab remote code</button>
+        <button id="clear">Clear</button>
+        <button id="test">BLE Test Code</button> <br /><br />
+        <script id="mpCode" type="mpy-editor" env="ble"></script>
+        <div id="repl"></div>
+
+        <h2>Get UV Data</h2>
+        <p>
+            Now that we have the UV data running. We need to compare it to the
+            the local UV data from the nearest weather station. To do this we
+            will use data from the EPA API. This will give use the UV index for
+            the local area.
+        </p>
+        <form id="locationForm">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required />
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" required />
+            <button type="submit">Get UV Index</button>
+        </form>
+        <canvas id="uvChart" width="400" height="200"></canvas>
+    </body>
 </html>
