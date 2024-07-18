@@ -5,6 +5,10 @@ import file_transfer
 import file_os
 import json
 
+##############################################
+# Terminal Code                              #
+##############################################
+
 ARDUINO_NANO = 128
 SPIKE = 256
 path = "https://raw.githubusercontent.com/chrisbuerginrogers/SPIKE_Prime/main/BLE/BLE_CEEO.py"
@@ -88,3 +92,7 @@ terminal.disconnect_callback = on_disconnect
 btns = [library, remote, clear]
 for b in btns:
     b.disabled = not terminal.connected
+
+##############################################
+# Connect up to the PicoW and get Data       #
+##############################################

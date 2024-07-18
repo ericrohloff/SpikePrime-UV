@@ -1,6 +1,4 @@
 from machine import ADC, Pin
-import time
-from machine import ADC, Pin
 
 adc = ADC(Pin(27))  # Initialize ADC on GPIO pin 27
 value = adc.read_u16()

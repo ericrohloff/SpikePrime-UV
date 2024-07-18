@@ -1,6 +1,9 @@
+// app.js
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('locationForm');
     const ctx = document.getElementById('uvChart').getContext('2d');
+    const button = document.getElementById('get_sensor_data');
+    const exportButton = document.getElementById('export_data');
     let chart = null;
 
     form.addEventListener('submit', async function(event) {
@@ -18,6 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('No data available for the specified location.');
         }
+    });
+
+    button.addEventListener('click', function() {
+        // Assuming new data points are generated or retrieved here
+        const newData = {
+            DATE_TIME: moment().format('MMM/DD/YYYY hh A'),
+            UV_VALUE: (Math.random() * 10).toFixed(2) // Example UV value
+        };
+
+        updateChart(chart, newData);
+    });
+
+    exportButton.addEventListener('click', function() {
+        const csv = exportChartData(chart);
+        downloadCSV(csv, 'chart_data.csv');
     });
 });
 
@@ -51,6 +69,13 @@ function createChart(ctx, data) {
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 fill: true,
+            },
+            {
+                label: 'Sensor Data',
+                data: [],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
             }]
         },
         options: {
@@ -78,4 +103,29 @@ function createChart(ctx, data) {
             }
         }
     });
+}
+
+function updateChart(chart, newData) {
+    const newLabel = moment(newData.DATE_TIME, 'MMM/DD/YYYY hh A').toDate();
+    const newUVValue = parseFloat(newData.UV_VALUE);
+    
+    let sensorDataset = chart.data.datasets.find(dataset => dataset.label === 'Sensor Data');
+
+    if (!sensorDataset) {
+        // If the dataset does not exist, create a new one
+        sensorDataset = {
+            label: 'Sensor Data',
+            data: [],
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: true,
+        };
+        chart.data.datasets.push(sensorDataset);
+    }
+
+    // Add new data to the sensor dataset
+    sensorDataset.data.push({ x: newLabel, y: newUVValue });
+
+    // Update the chart
+    chart.update();
 }
