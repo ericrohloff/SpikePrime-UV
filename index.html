@@ -34,12 +34,12 @@
         <h1>UV Index Activity</h1>
         <p>
             You and your friends are planning to play frisbee in the park. You
-            need to know the UV index to make sure you are safe and when the
-            best time to play is between 9am and 5pm. You have a Spike Prime and
-            a UV sensor to help you with this task. You will use the UV sensor
-            to get the UV index and compare it to the local weather station UV
-            index. Then use Python to analyze the data to find the best time to
-            play with your friends.
+            need to know the UV index and temperature to make sure you are safe
+            and when the best time to play is between 9am and 5pm. You have a
+            Spike Prime and a UV sensor to help you with this task. You will use
+            the UV sensor to get the UV index and compare it to the local
+            weather station temperature. Then use Python to analyze the data to
+            find the best time to play with your friends.
         </p>
 
         <h2>Connect to Spike and Pico</h2>
@@ -50,7 +50,8 @@
         </p>
         <button id="connect">connect up</button>
         <button id="library">load BLE library</button>
-        <progress id="progress" value="0" max="100">0%</progress> <br /><br />
+        <progress id="progress" value="0" max="100" hidden>0%</progress>
+        <br /><br />
         <select name="files" id="files"></select>
         <button id="upload">Grab remote code</button>
         <button id="clear">Clear</button>
@@ -61,69 +62,46 @@
         <h2>Get UV Data</h2>
         <p>
             Now that we have the UV data running. We need to compare it to the
-            the local UV data from the nearest weather station. To do this we
-            will use data from the EPA API. This will give use the UV index for
-            the local area. Input the town and state to get the UV index of
-            where you will play frisbee.
+            the local temperature data from the nearest weather station. To do
+            this we will use data from an API. This will give use the
+            temperature for the local area. Look at both of these data sets to
+            see if they match up.
         </p>
-        <form id="locationForm">
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" required />
-            <label for="state">State:</label>
-            <input type="text" id="state" name="state" required />
-            <button type="submit">Get UV Index</button>
-        </form>
-        <canvas id="uvChart" width="400" height="200"></canvas>
+        <canvas id="tempChart" width="400" height="200"></canvas>
 
         <h2>Data Science Go!</h2>
         <p>
             Now that we have the UV data from the local weather station and the
             UV data from the Spike Prime. We can compare the two data sets to
             see how accurate the Spike Prime is and see if the UV index matches
-            the forecasted UV index. First add the sensor data to the graph
-            above using the "Add Sensor Data" button. Next start playing with
-            the data using the "Start Analyzing" button to find the best time to
-            play frisbee.
+            the weather. First add the sensor data to the graph above using the
+            "Add Sensor Data" button. Next start playing with the data using the
+            "Start Analyzing" button to find the best time to play frisbee.
         </p>
         <button id="get_sensor_data">Add Sensor Data</button>
         <button id="to_python">Start Analyzing</button>
         <script type="py-editor" config="matplotlib.toml">
-            import matplotlib.pyplot as plt
-            import matplotlib.tri as tri
-            import numpy as np
+            ## This is matplotlib code to plot the data try experimenting with the settings and find out what time is the best time to play frisbee. ##
 
+            import matplotlib.pyplot as plt
+            import numpy as np
             from pyscript import display
 
-            # First create the x and y coordinates of the points.
-            n_angles = 36
-            n_radii = 8
-            min_radius = 0.25
-            radii = np.linspace(min_radius, 0.95, n_radii)
+            x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+            y = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
-            angles = np.linspace(0, 2 * np.pi, n_angles, endpoint=False)
-            angles = np.repeat(angles[..., np.newaxis], n_radii, axis=1)
-            angles[:, 1::2] += np.pi / n_angles
+            ## Settings for the plot ##
 
-            x = (radii * np.cos(angles)).flatten()
-            y = (radii * np.sin(angles)).flatten()
-            z = (np.cos(radii) * np.cos(3 * angles)).flatten()
+            plt.plot(x, y, label='data!') # Change the label
+            plt.title('Sample Plot') # Change the Title!
+            plt.xlabel('Date and Time') # Change the x-axis label!
+            plt.ylabel('UV Index') # Change the y-axis label!
 
-            # Create the Triangulation; no triangles so Delaunay triangulation created.
-            triang = tri.Triangulation(x, y)
+            plt.legend()
+            plt.grid(True)
 
-            # Mask off unwanted triangles.
-            triang.set_mask(np.hypot(x[triang.triangles].mean(axis=1),
-                                        y[triang.triangles].mean(axis=1))
-                            < min_radius)
-
-            fig1, ax1 = plt.subplots()
-            ax1.set_aspect('equal')
-            tpc = ax1.tripcolor(triang, z, shading='flat')
-            fig1.colorbar(tpc)
-            ax1.set_title('tripcolor of Delaunay triangulation, flat shading')
-
-            display(fig1, target="mpl")
+            display(plt, target="set_up")
         </script>
-        <div id="mpl"></div>
+        <div id="set_up"></div>
     </body>
 </html>
