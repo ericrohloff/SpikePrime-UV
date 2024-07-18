@@ -14,7 +14,7 @@ SPIKE = 256
 path = "https://raw.githubusercontent.com/chrisbuerginrogers/SPIKE_Prime/main/BLE/BLE_CEEO.py"
 
 
-def on_connect(event):
+async def on_connect(event):
     if terminal.connected:
         connect.innerText = 'connect up'
         await terminal.board.disconnect()
@@ -70,6 +70,11 @@ def on_test(event):
     python.code = test_code
 
 
+@when("click", "#data")
+def on_data(event):
+    data = terminal.buffer
+
+
 connect = document.getElementById('connect')
 library = document.getElementById('library')
 progress_bar = document.getElementById('progress')
@@ -85,8 +90,8 @@ remote.onclick = on_select
 clear.onclick = on_clear
 python.handleEvent = handle_board
 
-# terminal = andrea_terminal.Terminal()
-terminal = file_transfer.Ampy(ARDUINO_NANO, progress_bar)
+terminal = andrea_terminal.Terminal()
+# terminal = file_transfer.Ampy(ARDUINO_NANO, progress_bar)
 terminal.disconnect_callback = on_disconnect
 
 btns = [library, remote, clear]

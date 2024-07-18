@@ -39,7 +39,8 @@
             Spike Prime and a UV sensor to help you with this task. You will use
             the UV sensor to get the UV index and compare it to the local
             weather station temperature. Then use Python to analyze the data to
-            find the best time to play with your friends.
+            find the best time to play with your friends. When you have
+            collected all your data press "Get Data" to get your UV Data.
         </p>
 
         <h2>Connect to Spike and Pico</h2>
@@ -56,6 +57,7 @@
         <button id="upload">Grab remote code</button>
         <button id="clear">Clear</button>
         <button id="test">BLE Test Code</button> <br /><br />
+        <button id="data">Get Data</button>
         <script id="mpCode" type="mpy-editor" env="ble"></script>
         <div id="repl"></div>
 
@@ -80,7 +82,7 @@
         </p>
         <button id="get_sensor_data">Add Sensor Data</button>
         <button id="to_python">Start Analyzing</button>
-        <script type="py-editor" config="matplotlib.toml">
+        <script type="py-editor" env="graph" config="matplotlib.toml">
             ## This is matplotlib code to plot the data try experimenting with the settings and find out what time is the best time to play frisbee. ##
 
             import matplotlib.pyplot as plt
