@@ -35,4 +35,4 @@ while x < 6:
     print("UV Index:", uv_index)
     # Sleep for 1 hour (3600 seconds)
     x += 1
-    time.sleep(2)
+    time.sleep(.2)

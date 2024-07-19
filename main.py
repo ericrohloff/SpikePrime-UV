@@ -70,9 +70,10 @@ def on_test(event):
     python.code = test_code
 
 
-@when("click", "#data")
+@when("click", "#get_sensor_data")
 def on_data(event):
     data = terminal.buffer
+    print(data)
 
 
 connect = document.getElementById('connect')
