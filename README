@@ -1,0 +1,13 @@
+## UV Activity
+
+Super fun cool activity yay!
+
+## TODO
+
+-   [ ] Get data from env -> DOM -> env
+-   [ ] Fix API calls to use historical data and refine the activity
+-   [ ] Get API -> env
+-   [ ] Get API -> DOM
+-   [ ] Test Activity
+-   [ ] Add a description of the activity
+-   [ ] Add CSS Styling
