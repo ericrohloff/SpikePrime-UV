@@ -7,7 +7,7 @@ import file_os
 import json
 
 ##############################################
-# Terminal Code                              #
+#               Terminal Code                #
 ##############################################
 
 ARDUINO_NANO = 128
@@ -75,45 +75,52 @@ def on_test(event):
 def on_data(event):
     import json
 
-    # Get the data from the terminal buffer
-    data = terminal.buffer
-    # Debug: Print the raw data
-    print(f"Raw data:\n{data}")
+    try:
+        # Get the data from the terminal buffer
+        data = terminal.buffer
+        # Debug: Print the raw data
+        print(f"Raw data:\n{data}")
 
-    # Get the HTML element with id 'uvData'
-    uv_data_element = document.getElementById('uvData')
+        # Get the HTML element with id 'uvData'
+        uv_data_element = document.getElementById('uvData')
+        if not uv_data_element:
+            print("Error: HTML element with id 'uvData' not found.")
+            return
 
-    # Split the data into lines
-    data_lines = data.split('\n')
-    # Debug: Print the split data lines
-    print(f"Data lines:\n{data_lines}")
+        # Split the data into lines
+        data_lines = data.split('\n')
+        # Debug: Print the split data lines
+        print(f"Data lines:\n{data_lines}")
 
-    # Filter lines that start with "UV Index: "
-    uv_data_lines = [
-        line for line in data_lines if line.startswith("UV Index: ")]
-    # Debug: Print the filtered UV data lines
-    print(f"UV data lines:\n{uv_data_lines}")
+        # Filter lines that start with "UV Index: "
+        uv_data_lines = [
+            line for line in data_lines if line.startswith("UV Index: ")]
+        # Debug: Print the filtered UV data lines
+        print(f"UV data lines:\n{uv_data_lines}")
 
-    # Create a list of dictionaries to convert to JSON
-    uv_data_dicts = []
-    start_hour = 9
-    for i, line in enumerate(uv_data_lines):
-        # Assuming the format is "UV Index: value"
-        uv_value = line.replace("UV Index: ", "").strip()
-        data_dict = {"UV Index": uv_value, "time": f"{start_hour + i}:00"}
-        uv_data_dicts.append(data_dict)
+        # Create a list of dictionaries to convert to JSON
+        uv_data_dicts = []
+        start_hour = 9
+        for i, line in enumerate(uv_data_lines):
+            # Assuming the format is "UV Index: value"
+            uv_value = line.replace("UV Index: ", "").strip()
+            data_dict = {"UV Index": uv_value, "time": f"{start_hour + i}:00"}
+            uv_data_dicts.append(data_dict)
 
-    # Debug: Print the list of dictionaries
-    print(f"UV data dictionaries:\n{uv_data_dicts}")
+        # Debug: Print the list of dictionaries
+        print(f"UV data dictionaries:\n{uv_data_dicts}")
 
-    # Manually construct the JSON string
-    uv_data_json = json.dumps(uv_data_dicts)
+        # Manually construct the JSON string
+        uv_data_json = json.dumps(uv_data_dicts)
 
-    # Debug: Print the JSON string
-    print(f"UV data JSON:\n{uv_data_json}")
+        # Debug: Print the JSON string
+        print(f"UV data JSON:\n{uv_data_json}")
 
-    # Set the JSON data as the inner text of the UV data element
-    uv_data_element.innerText = uv_data_json
+        # Set the JSON data as the inner text of the UV data element
+        uv_data_element.innerText = uv_data_json
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 connect = document.getElementById('connect')

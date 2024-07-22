@@ -31,7 +31,7 @@
         ></script>
         <script src="app.js"></script>
 
-        <h1>UV Index Activity</h1>
+        <header>Big Data: UV Index with the Lego Spike Prime and PicoW</header>
         <p>
             You and your friends are planning to play frisbee in the park. You
             need to know the UV index and temperature to make sure you are safe
@@ -60,7 +60,7 @@
         <script id="mpCode" type="mpy-editor" env="ble"></script>
         <div id="repl"></div>
 
-        <h2>Get UV Data</h2>
+        <h2>Get Daily UV Data</h2>
         <p>
             Now that we have the UV data running. We need to compare it to the
             the local temperature data from the nearest weather station. To do
@@ -82,13 +82,6 @@
         </p>
         <button id="get_sensor_data">Graph Sensor Data</button>
         <button id="to_python">Use Sensor Data</button>
-        <script
-            type="py"
-            env="graph"
-            src="./sensor.py"
-            config="./matplotlib.toml"
-            async
-        ></script>
         <script type="py-editor" env="daily" config="matplotlib.toml">
             ## Do Not Edit this Code! ##
             ## Run this code to get the data from the sensor then move on to the next step. ##

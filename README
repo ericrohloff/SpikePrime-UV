@@ -1,4 +1,4 @@
-## UV Activity
+## Big Data: UV Index with the Lego Spike Prime and PicoW
 
 This activity is designed to be used with the LEGO Spike Prime and the PicoW
 with grove UV Sensor. The primary purpose of this activity is to get students
@@ -10,9 +10,10 @@ for this activity is 12-18 years old.
 ## TODO List
 
 -   [Y] Get data from env -> DOM -> env
+-   [ ] Connect to LEGO Spike Prime
 -   [ ] Fix API calls to use historical data and refine the activity
 -   [ ] Get API -> env
--   [ ] Get API -> DOM
+-   [Y] Get API -> DOM
+-   [Y] Add a description of the activity
+-   [Y] Add CSS Styling
 -   [ ] Test Activity
--   [ ] Add a description of the activity
--   [ ] Add CSS Styling

@@ -1,12 +1,14 @@
 async function createWeatherChart(latitude, longitude) {
   try {
       // Fetch data from the API
-      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=1`);
+      const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relative_humidity_2m&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=1`);
       const data = await response.json();
 
       // Extract time and temperature data
       const times = data.hourly.time.map(time => new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
       const temperatures = data.hourly.temperature_2m;
+      const humidity = data.hourly.relative_humidity_2m;
+
 
       // Initialize UV index array with zeros
       let uvIndex = temperatures.map(() => 0);
@@ -33,7 +35,14 @@ async function createWeatherChart(latitude, longitude) {
                       borderColor: 'rgb(255, 99, 132)',
                       tension: 0.1,
                       yAxisID: 'y1'
-                  }
+                  },
+                  {
+                      label: 'Humidity (%)',
+                      data: humidity,
+                      borderColor: 'rgb(153, 102, 255)',
+                      tension: 0.1,
+                      yAxisID: 'y2'
+                    }
               ]
           },
           options: {
@@ -68,6 +77,18 @@ async function createWeatherChart(latitude, longitude) {
                       },
                       grid: {
                           drawOnChartArea: false,
+                      },
+                  },
+                  y2: {
+                          type: 'linear',
+                          display: true,
+                          position: 'right',
+                          title: {
+                            display: true,
+                            text: 'Humidity (%)'
+                          },
+                          grid: {
+                              drawOnChartArea: false,
                       },
                   }
               }
