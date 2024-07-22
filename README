@@ -7,11 +7,11 @@ from a UV sensor, historical data, and an API, students will be able to use data
 science techniques to make decisions based on the data. The primary age group
 for this activity is 12-18 years old.
 
-## TODO List
+## TO-DO List
+
+-   [ ] Send to Google Colab
+-   [ ] Fix API calls to use historical data and refine the activity
 
 -   [ ] Connect to LEGO Spike Prime
--   [ ] Send to Google Colab
--   [ ]
--   [ ] Fix API calls to use historical data and refine the activity
--   [ ] Get API -> env
+-   [ ] Side Panel the Terminal and the REPL
 -   [ ] Test Activity
