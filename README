@@ -9,11 +9,9 @@ for this activity is 12-18 years old.
 
 ## TODO List
 
--   [Y] Get data from env -> DOM -> env
 -   [ ] Connect to LEGO Spike Prime
+-   [ ] Send to Google Colab
+-   [ ]
 -   [ ] Fix API calls to use historical data and refine the activity
 -   [ ] Get API -> env
--   [Y] Get API -> DOM
--   [Y] Add a description of the activity
--   [Y] Add CSS Styling
 -   [ ] Test Activity

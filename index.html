@@ -38,16 +38,15 @@
             and when the best time to play is between 9am and 5pm. You have a
             Spike Prime and a UV sensor to help you with this task. You will use
             the UV sensor to get the UV index and compare it to the local
-            weather station temperature. Then use Python to analyze the data to
-            find the best time to play with your friends. When you have
-            collected all your data press "Get Data" to get your UV Data.
+            weather station temperature. Then use Python and Google Colab to
+            analyze the data to find the best time to play with your friends.
         </p>
 
         <h2>Connect to Spike and Pico</h2>
         <p>
             First connect up to the Spike Prime in order to communicate to the
             RoboPico. This will let us grab data on when the best time to play
-            frisbee is.
+            frisbee is. Select hardware.py and then run the code!
         </p>
         <button id="connect">connect up</button>
         <button id="library">load BLE library</button>
@@ -70,6 +69,7 @@
         </p>
         <canvas id="tempChart" width="400" height="200"></canvas>
         <div id="uvData"></div>
+        <div id="otherData"></div>
 
         <h2>Best Time to Play Frisbee Today!</h2>
         <p>
@@ -82,6 +82,7 @@
         </p>
         <button id="get_sensor_data">Graph Sensor Data</button>
         <button id="to_python">Use Sensor Data</button>
+        <button id="colab">Send to Google Colab</button>
         <script type="py-editor" env="daily" config="matplotlib.toml">
             ## Do Not Edit this Code! ##
             ## Run this code to get the data from the sensor then move on to the next step. ##
@@ -94,18 +95,36 @@
 
                 uv_data = json.loads(uv_data_json)
 
-                times = [entry['time'] for entry in uv_data]
+                times_uv = [entry['time'] for entry in uv_data]
                 uv_indices = [float(entry['UV Index']) for entry in uv_data]
 
-                global time_list
+                global time_list_uv
                 global uv_index_list
-                time_list = times
+                time_list_uv = times_uv
                 uv_index_list = uv_indices
 
-                print("Time List:", time_list)
+                print("Time List (UV):", time_list_uv)
                 print("UV Index List:", uv_index_list)
 
+            def process_other_data():
+                other_data_element = window.document.getElementById('otherData')
+                other_data_json = other_data_element.innerText
+
+                other_data = json.loads(other_data_json)
+
+                humidities = [entry['Humidity'] for entry in other_data]
+                temperatures = [entry['Temperature'] for entry in other_data]
+
+                global humidity_list
+                global temperature_list
+                humidity_list = humidities
+                temperature_list = temperatures
+
+                print("Humidity List:", humidity_list)
+                print("Temperature List:", temperature_list)
+
             process_uv_data()
+            process_other_data()
         </script>
         <script type="py-editor" env="daily">
             ## This is matplotlib code to plot the data try experimenting with the settings and find out what time is the best time to play frisbee. ##
@@ -138,7 +157,10 @@
             best day to play frisbee. Use the data to find the best day to play
             frisbee. Each Friday is a good day to play frisbee.
         </p>
-        <p>Coming soon...</p>
-        <script type="py-editor" env="summer" config="summer.toml"></script>
+        <p>Click this link to continue in Google Colab...</p>
+        <a
+            href="https://colab.research.google.com/drive/1HWw_nLjtoi-3X9VJIM-opJcOlxqM7_yV?usp=sharing"
+            >To Colab!
+        </a>
     </body>
 </html>
