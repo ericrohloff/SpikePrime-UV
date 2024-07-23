@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>UV</title>
+        <title>Big Data: UV Index</title>
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -19,10 +19,12 @@
         ></script>
         <link rel="stylesheet" href="styles.css" />
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0/dist/chartjs-adapter-moment.min.js"></script>
+        <script src="mqtt.min.js"></script>
     </head>
     <body>
+        <header id="headbarr">
+            Big Data: UV Index with the Lego Spike Prime and PicoW
+        </header>
         <script
             type="mpy"
             src="./main.py"
@@ -31,7 +33,6 @@
         ></script>
         <script src="app.js"></script>
 
-        <header>Big Data: UV Index with the Lego Spike Prime and PicoW</header>
         <p>
             You and your friends are planning to play frisbee in the park. You
             need to know the UV index and temperature to make sure you are safe
@@ -56,8 +57,10 @@
         <button id="upload">Grab remote code</button>
         <button id="clear">Clear</button>
         <button id="test">BLE Test Code</button> <br /><br />
-        <script id="mpCode" type="mpy-editor" env="ble"></script>
-        <div id="repl"></div>
+        <div class="container">
+            <script id="mpCode" type="mpy-editor" env="ble"></script>
+            <div id="repl"></div>
+        </div>
 
         <h2>Get Daily UV Data</h2>
         <p>
@@ -82,7 +85,6 @@
         </p>
         <button id="get_sensor_data">Graph Sensor Data</button>
         <button id="to_python">Use Sensor Data</button>
-        <button id="colab">Send to Google Colab</button>
         <script type="py-editor" env="daily" config="matplotlib.toml">
             ## Do Not Edit this Code! ##
             ## Run this code to get the data from the sensor then move on to the next step. ##
@@ -153,14 +155,18 @@
 
         <h2>Best Day of Summer '24 to Play Frisbee</h2>
         <p>
-            Here is some preloaded data from the whole summer to figure out the
-            best day to play frisbee. Use the data to find the best day to play
-            frisbee. Each Friday is a good day to play frisbee.
+            Continue to Google Colab to continue this activity and find the best
+            day of the summer to play frisbee. Use the data to find of the whole
+            summer from the API. Friday is the best day of the week to play
+            frisbee.
         </p>
+        <button id="colab">Send to Google Colab</button>
         <p>Click this link to continue in Google Colab...</p>
         <a
             href="https://colab.research.google.com/drive/1HWw_nLjtoi-3X9VJIM-opJcOlxqM7_yV?usp=sharing"
             >To Colab!
         </a>
+        <br /><br />
+        <br /><br />
     </body>
 </html>

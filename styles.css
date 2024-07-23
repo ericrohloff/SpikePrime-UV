@@ -17,7 +17,7 @@ body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #f8f9fa, #e0e0e0);
     margin: 0;
-    padding: 0;
+    padding: 5px;
 }
 header {
     background-color: #343a40;
@@ -64,4 +64,26 @@ select {
 }
 canvas {
     margin-top: 20px;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+
+#mpy-editor-4 {
+    width: 50%;
+    flex: 1;
+    height: 100%;
+}
+
+#repl {
+    width: 50%;
+    flex: 1;
+}
+
+#headbarr {
+    width: 100%;
+    margin: 0;
 }

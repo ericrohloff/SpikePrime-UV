@@ -1,3 +1,5 @@
+import asyncio
+from pyscript.js_modules import mqtt_library
 from pyscript import document, window, when
 from datetime import datetime, timedelta
 import andrea_terminal
@@ -145,3 +147,30 @@ terminal.disconnect_callback = on_disconnect
 btns = [library, remote, clear]
 for b in btns:
     b.disabled = not terminal.connected
+
+
+##############################################
+#               MQTT CODE                    #
+##############################################
+
+myClient = mqtt_library.myClient
+topic = 'Tufts_CEEO/uv_activity'
+
+dataUV = document.getElementById('uvData')
+msg = dataUV.innerHTML
+print(msg)
+
+
+async def waitForMQTT():
+    while not myClient.connected:
+        await asyncio.sleep(0.1)
+
+
+myClient.init()
+await waitForMQTT()
+myClient.subscribe('Tufts_CEEO/uv_sensor')
+
+
+@when("click", "#colab")
+def send_colab(event):
+    myClient.publish(topic, msg)
