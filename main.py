@@ -76,7 +76,6 @@ def on_test(event):
 @when("click", "#get_sensor_data")
 def on_data(event):
     import json
-
     try:
         # Get the data from the terminal buffer
         data = terminal.buffer
@@ -120,6 +119,8 @@ def on_data(event):
 
         # Set the JSON data as the inner text of the UV data element
         uv_data_element.innerText = uv_data_json
+        global message
+        message = uv_data_json
 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -154,11 +155,9 @@ for b in btns:
 ##############################################
 
 myClient = mqtt_library.myClient
-topic = 'Tufts_CEEO/uv_activity'
+topic = 'Tufts_CEEO/uv_sensor'
 
 dataUV = document.getElementById('uvData')
-msg = dataUV.innerHTML
-print(msg)
 
 
 async def waitForMQTT():
@@ -173,4 +172,5 @@ myClient.subscribe('Tufts_CEEO/uv_sensor')
 
 @when("click", "#colab")
 def send_colab(event):
+    msg = message
     myClient.publish(topic, msg)
