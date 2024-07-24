@@ -4,13 +4,10 @@ This activity is designed to be used with the LEGO Spike Prime and the PicoW
 with grove UV Sensor. The primary purpose of this activity is to get students
 involved with Big Data and how it can be used to make decisions. By using data
 from a UV sensor, historical data, and an API, students will be able to use data
-science techniques to make decisions based on the data. The primary age group
-for this activity is 12-18 years old.
+science techniques to make decisions based on the data.
 
 ## TO-DO List
 
--   [ ] Send to Google Colab
--   [ ] Fix API calls to use historical data and refine the activity
-
 -   [ ] Connect to LEGO Spike Prime
+-   [ ] Fix API calls to use historical data and refine the activity
 -   [ ] Test Activity
