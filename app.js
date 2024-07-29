@@ -155,4 +155,4 @@ async function createWeatherChart(latitude, longitude) {
 }
 
 // Call the function with desired latitude and longitude
-createWeatherChart(40.7128, -74.0060); // Example coordinates for New York City
+createWeatherChart(42.4184, -71.1062); // Example coordinates for New York City
