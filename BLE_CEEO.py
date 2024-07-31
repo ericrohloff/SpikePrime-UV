@@ -1,4 +1,4 @@
-import bluetooth
+import BLE_CEEO
 import time
 import struct
 import micropython
@@ -32,9 +32,9 @@ IRQ_GATTC_WRITE_DONE = 17
 IRQ_GATTC_NOTIFY = 18
 IRQ_GATTC_INDICATE = 19
 
-UART_SERVICE_UUID = bluetooth.UUID("6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-UART_RX_CHAR_UUID = bluetooth.UUID("6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-UART_TX_CHAR_UUID = bluetooth.UUID("6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+UART_SERVICE_UUID = BLE_CEEO.UUID("6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
+UART_RX_CHAR_UUID = BLE_CEEO.UUID("6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
+UART_TX_CHAR_UUID = BLE_CEEO.UUID("6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 
 FLAG_READ = 0x0002
 FLAG_WRITE_NO_RESPONSE = 0x0004
@@ -46,8 +46,8 @@ UART_TX = (UART_TX_CHAR_UUID, FLAG_READ | FLAG_NOTIFY,)
 UART_RX = (UART_RX_CHAR_UUID, FLAG_WRITE | FLAG_WRITE_NO_RESPONSE,)
 UART_SERVICE = (UART_UUID, (UART_TX, UART_RX),)
 
-MIDI_SERVICE_UUID = bluetooth.UUID("03B80E5A-EDE8-4B33-A751-6CE34EC4C700")
-MIDI_CHAR_UUID = bluetooth.UUID("7772E5DB-3868-4112-A1A9-F2669D106BF3")
+MIDI_SERVICE_UUID = BLE_CEEO.UUID("03B80E5A-EDE8-4B33-A751-6CE34EC4C700")
+MIDI_CHAR_UUID = BLE_CEEO.UUID("7772E5DB-3868-4112-A1A9-F2669D106BF3")
 
 MIDI_UUID = MIDI_SERVICE_UUID
 MIDI_TXRX = (MIDI_CHAR_UUID, FLAG_READ | FLAG_NOTIFY | FLAG_WRITE_NO_RESPONSE,)
@@ -56,7 +56,7 @@ MIDI_SERVICE = (MIDI_UUID, (MIDI_TXRX,),)
 
 class Useful:
     def setup(self, name, verbose, callback):
-        self._ble = bluetooth.BLE()
+        self._ble = BLE_CEEO.BLE()
         self._ble.active(True)
         self._ble.irq(callback)
         self.name = name
@@ -241,11 +241,11 @@ class Listen(Useful):   # central
         ADV_TYPE_UUID128_COMPLETE = (0x7)
         try:
             for u in self.decode_field(payload, ADV_TYPE_UUID16_COMPLETE):
-                services.append(bluetooth.UUID(struct.unpack("<h", u)[0]))
+                services.append(BLE_CEEO.UUID(struct.unpack("<h", u)[0]))
             for u in self.decode_field(payload, ADV_TYPE_UUID32_COMPLETE):
-                services.append(bluetooth.UUID(struct.unpack("<d", u)[0]))
+                services.append(BLE_CEEO.UUID(struct.unpack("<d", u)[0]))
             for u in self.decode_field(payload, ADV_TYPE_UUID128_COMPLETE):
-                services.append(bluetooth.UUID(u))
+                services.append(BLE_CEEO.UUID(u))
         except:
             pass
         return services
